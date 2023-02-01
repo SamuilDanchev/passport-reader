@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LinkService } from 'src/app/service/link-service';
 
 @Component({
   selector: 'app-create-account',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateAccountComponent implements OnInit {
 
-  constructor() { }
+  constructor(private linkService: LinkService ) {}
 
   ngOnInit(): void {
+    console.log(this.linkService.link);
   }
 
 }

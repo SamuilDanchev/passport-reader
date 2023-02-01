@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { SelectPictureComponent } from './components/select-picture/select-picture.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LinkService } from './service/link-service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCardModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [LinkService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
