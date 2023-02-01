@@ -3,6 +3,11 @@
     max-height: 200px;
 }
 
+
+.mat-raised-button {
+    margin-bottom: 50px;
+}
+
 .card-wrapper {
     width: 50%;
     margin: auto;
