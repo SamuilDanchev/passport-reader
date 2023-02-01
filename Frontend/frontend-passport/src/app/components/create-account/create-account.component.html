@@ -13,10 +13,13 @@
           />
           <div class="student-info">
             <mat-form-field appearance="legacy">
-              Vorname, Nachname
-              <input matInput [value]="firstname +' ' +lastname" readonly />
+                Vorname
+              <input matInput [value]="firstname" readonly />
             </mat-form-field>
-
+            <mat-form-field appearance="legacy">
+                Nachname
+                <input matInput [value]="lastname" readonly />
+              </mat-form-field>
             <mat-form-field appearance="legacy">
               Geburtsdatum
               <input matInput [value]="birthday" readonly />
