@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,8 @@ import { SelectPictureComponent } from './components/select-picture/select-pictu
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LinkService } from './service/link-service';
+import { QRCodeModule } from 'angularx-qrcode';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { LinkService } from './service/link-service';
     BrowserAnimationsModule,
     BrowserModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    QRCodeModule,
+    ReactiveFormsModule,
+    MatFormFieldModule
   ],
   providers: [LinkService],
   bootstrap: [AppComponent]

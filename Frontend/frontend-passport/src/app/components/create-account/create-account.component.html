@@ -1,1 +1,37 @@
-<p>create-account works!</p>
+<div class="card-wrapper">
+	<div class="tp-box" (click)="toggleFlip()" [@flipState]="flip">
+		<div class="tp-box__side tp-box__front">
+      <mat-card class="student-card">
+        <mat-card-header>
+          <mat-card-title>Schülerausweis</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <img
+            mat-card-image
+            [src]="link"
+            alt="Angular Logo"
+          />
+          <div class="student-info">
+            <mat-form-field appearance="legacy">
+              <mat-label>Vorname, Nachname</mat-label>
+              <input matInput [value]="firstname +' ' +lastname" readonly />
+            </mat-form-field>
+
+            <mat-form-field appearance="legacy">
+              <mat-label>Geburtsdatum</mat-label>
+              <input matInput [value]="birthday" readonly />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-card-subtitle>Gültig in Verbindung mit einem Personalausweis bis zum  Klick mich an!</mat-card-subtitle>
+        </mat-card-footer>
+      </mat-card>
+		</div>
+		<div class="tp-box__side tp-box__back">
+      <mat-card>
+        <qrcode [qrdata]="qrData" [errorCorrectionLevel]="'M'" [width]="200"></qrcode>
+      </mat-card>
+		</div>
+	</div>
+</div>
