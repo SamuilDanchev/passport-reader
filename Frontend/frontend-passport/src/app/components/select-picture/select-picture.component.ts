@@ -48,7 +48,7 @@ export class SelectPictureComponent implements OnInit {
     this.checkmark2 = true;
     this.checkmark3 = false;
     this.checkmark4 = false;
-    this.link = "../../../assets/Hund1.jpg";
+    this.link = "../../../assets/Hund2.jpg";
     this.error = ""
   }
 
@@ -57,7 +57,7 @@ export class SelectPictureComponent implements OnInit {
     this.checkmark2 = false;
     this.checkmark3 = true;
     this.checkmark4 = false;
-    this.link = "../../../assets/Hund1.jpg";
+    this.link = "../../../assets/Hund3.jpg";
     this.error = ""
   }
 
@@ -66,7 +66,7 @@ export class SelectPictureComponent implements OnInit {
     this.checkmark2 = false;
     this.checkmark3 = false;
     this.checkmark4 = true;
-    this.link = "../../../assets/Hund1.jpg";
+    this.link = "../../../assets/Hund4.jpg";
     this.error = ""
   }
 }
