@@ -1,0 +1,39 @@
+.mat-card {
+    max-width: 1000px;
+    min-height: 300px;
+}
+.mat-card-image {
+    float: left;
+    max-width: 300px;
+    min-height: 150px;
+    margin-left: 50px;
+}
+.mat-card-image1 {
+    max-width: 200px;
+    max-height: 200px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+.mat-card-image2 {
+    max-width: 200px;
+    max-height: 200px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+.mat-card-image3 {
+    max-width: 200px;
+    max-height: 200px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+.mat-card-image4 {
+    max-width: 200px;
+    max-height: 200px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+.checkmark {
+    margin-right: 50px;
+    max-width: 20px;
+    max-height: 20px;
+}

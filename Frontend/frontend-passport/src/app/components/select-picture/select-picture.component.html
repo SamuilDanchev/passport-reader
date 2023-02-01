@@ -1,1 +1,33 @@
-<p>select-picture works!</p>
+<h1>Ihre Bildauswahl:</h1>
+    <mat-card class="mat-card-image">
+        <mat-card-content>
+            <img mat-card-image (click)="image1Clicked()" class="mat-card-image1" src="../../../assets/Hund1.jpg"/>
+        </mat-card-content>
+        <div *ngIf="checkmark1">
+            <img class="checkmark" src="../../../assets/checkmark.png"/>
+        </div>
+    </mat-card>
+    <mat-card class="mat-card-image">
+        <mat-card-content>
+            <img mat-card-image (click)="image2Clicked()" class="mat-card-image2" src="../../../assets/Hund2.jpg" />
+        </mat-card-content>
+        <div *ngIf="checkmark2">
+            <img class="checkmark" src="../../../assets/checkmark.png"/>
+        </div>
+    </mat-card>
+    <mat-card class="mat-card-image">
+        <mat-card-content>
+            <img mat-card-image (click)="image3Clicked()" class="mat-card-image3" src="../../../assets/Hund3.jpg" />
+        </mat-card-content>
+        <div *ngIf="checkmark3">
+            <img class="checkmark" src="../../../assets/checkmark.png"/>
+        </div>
+    </mat-card>
+    <mat-card class="mat-card-image">
+        <mat-card-content>
+            <img mat-card-image (click)="image4Clicked()" class="mat-card-image4" src="../../../assets/Hund4.jpg" />
+        </mat-card-content>
+        <div *ngIf="checkmark4">
+            <img class="checkmark" src="../../../assets/checkmark.png"/>
+        </div>
+    </mat-card>
