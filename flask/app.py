@@ -10,7 +10,7 @@
     :copyright: (c) 2019 by Patrick RANDRIA.
     :license: MIT, see LICENSE_FILE for more details.
 """
-
+from flask_cors import CORS
 import os
 import json
 import logging
@@ -27,10 +27,11 @@ import cv2
 import numpy as np
 import re
 
-UPLOAD_FOLDER = '../assets/Ausweis2.jpg'
+UPLOAD_FOLDER = './upload'
 EDIT_FOLDER = '/edit'
 
 app = Flask(__name__)
+CORS(app)
 
 log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(level=logging.INFO, format=log_fmt)
@@ -42,14 +43,13 @@ def hello_world():
 @app.route('/process', methods=['POST'])
 def process():
 
-    full_path = 'Ausweis2.jpg'
-    # imagefile = request.files.get('imagefile', None)
-    # if not imagefile:
-    #     return make_response("Missing file parameter", 400)
+    imagefile = request.files.get('imagefile', None)
+    if not imagefile:
+        return make_response("Missing file parameter", 400)
 
-    # filename = secure_filename(imagefile.filename)
-    # full_path = os.path.join(UPLOAD_FOLDER, filename)
-    # imagefile.save(full_path)
+    filename = secure_filename(imagefile.filename)
+    full_path = os.path.join(UPLOAD_FOLDER, filename)
+    imagefile.save(full_path)
 
     # Extract informations with PassportEye
     p = MRZPipeline(full_path, extra_cmdline_params='--oem 0')
@@ -62,7 +62,7 @@ def process():
 
     # Convert image to text
     full_content = image_to_string(full_path)
-    # logging.info('full image content = %s' %(full_content))
+    logging.info('full image content = %s' %(full_content))
 
     all_infos = {}
     all_infos['last_name'] = mrz_data['surname'].upper()

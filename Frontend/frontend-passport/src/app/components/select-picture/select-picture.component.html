@@ -21,3 +21,7 @@
     <button mat-raised-button (click)="redirect()">Weiter</button>
     {{error}}
 </div>
+
+<h1>File Uploader</h1>
+<input type="file" (change)="uploadFile($event)" />
+<button (click)="sendFile()">Send File</button>

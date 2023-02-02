@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LinkService } from './service/link-service';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     QRCodeModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
   providers: [LinkService],
   bootstrap: [AppComponent]

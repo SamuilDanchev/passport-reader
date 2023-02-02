@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LinkService } from 'src/app/service/link-service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-select-picture',
@@ -19,25 +21,61 @@ export class SelectPictureComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private linkService: LinkService
+    private linkService: LinkService,
+    private http: HttpClient
   ) {
     this.linkService.link = this.link;
    }
 
   ngOnInit(): void {
   }
+  selectedFile: File;
 
-  redirect() {
-    if(this.link === "") {
+  uploadFile(event) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  sendFile() {
+    const endpoint = 'http://127.0.0.1:5000/process';
+    const formData = new FormData();
+    debugger;
+    formData.append('imagefile', this.selectedFile, this.selectedFile.name);
+
+    this.http.post(endpoint, formData).subscribe(
+      res => console.log(res),
+      err => console.error(err)
+    );
+  }
+  async redirect() {
+
+    const endpoint = 'http://127.0.0.1:5000/process';
+    const formData = new FormData();
+
+    const file = await this.createFile('../../../assets/Ausweis2.jpg', 'Ausweis2.jpg', 'image/png')
+    debugger;
+    formData.append('imagefile', file, 'Ausweis2.jpg');
+
+    this.http.post(endpoint, formData).subscribe(
+      res => console.log(res),
+      err => console.error(err)
+    );
+/*     if(this.link === "") {
       return this.error = "Sie haben noch kein Bild ausgesucht"
     } else {
       this.router.navigate(['/createAccount'], {
         relativeTo: this.route
       });
     }
-    return;
+    return; */
   }
-
+  async createFile(path: string, name: string, type: string): Promise<File> {
+    let response = await fetch(path);
+    let data = await response.blob();
+    let metadata = {
+        type: type
+    };
+    return new File([data], name, metadata);
+}
   image1Clicked(): string {
     this.checkmark1 = true;
     this.checkmark2 = false;
