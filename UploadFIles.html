@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>File Upload Form</title>
+    <script>
+      function submitForm(event) {
+        event.preventDefault();
+
+        var formData = new FormData();
+        formData.append("file", document.querySelector("input[type='file']").files[0]);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://127.0.0.1:5000/api/upload", true);
+        xhr.onreadystatechange = function() {
+          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            document.querySelector("#response").innerHTML = this.responseText;
+          }
+        };
+        xhr.send(formData);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>File Upload Form</h1>
+    <form onsubmit="submitForm(event)">
+      <input type="file" name="file">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form>
+    <div id="response"></div>
+  </body>
+</html>
