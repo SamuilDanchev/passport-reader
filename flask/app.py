@@ -27,7 +27,7 @@ import cv2
 import numpy as np
 import re
 
-UPLOAD_FOLDER = '/uploads'
+UPLOAD_FOLDER = '../assets/Ausweis2.jpg'
 EDIT_FOLDER = '/edit'
 
 app = Flask(__name__)
@@ -42,13 +42,14 @@ def hello_world():
 @app.route('/process', methods=['POST'])
 def process():
 
-    imagefile = request.files.get('imagefile', None)
-    if not imagefile:
-        return make_response("Missing file parameter", 400)
+    full_path = 'Ausweis2.jpg'
+    # imagefile = request.files.get('imagefile', None)
+    # if not imagefile:
+    #     return make_response("Missing file parameter", 400)
 
-    filename = secure_filename(imagefile.filename)
-    full_path = os.path.join(UPLOAD_FOLDER, filename)
-    imagefile.save(full_path)
+    # filename = secure_filename(imagefile.filename)
+    # full_path = os.path.join(UPLOAD_FOLDER, filename)
+    # imagefile.save(full_path)
 
     # Extract informations with PassportEye
     p = MRZPipeline(full_path, extra_cmdline_params='--oem 0')
@@ -72,6 +73,7 @@ def process():
     all_infos['number'] = mrz_data['number']
     all_infos['sex'] = mrz_data['sex']
     # all_infos['full_text'] = full_content
+    all_infos['date_of_birth'] = mrz_data['date_of_birth']
     valid_score = mrz_data['valid_score']
 
     # Trying to extract full name
