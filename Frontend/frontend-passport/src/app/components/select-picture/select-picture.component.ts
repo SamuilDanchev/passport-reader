@@ -38,7 +38,6 @@ export class SelectPictureComponent implements OnInit {
   sendFile() {
     const endpoint = 'http://127.0.0.1:5000/process';
     const formData = new FormData();
-    debugger;
     formData.append('imagefile', this.selectedFile, this.selectedFile.name);
 
     this.http.post(endpoint, formData).subscribe(
@@ -52,7 +51,7 @@ export class SelectPictureComponent implements OnInit {
     const formData = new FormData();
 
     const file = await this.createFile('../../../assets/Ausweis2.jpg', 'Ausweis2.jpg', 'image/png')
-    debugger;
+
     formData.append('imagefile', file, 'Ausweis2.jpg');
 
     this.http.post(endpoint, formData).subscribe(
