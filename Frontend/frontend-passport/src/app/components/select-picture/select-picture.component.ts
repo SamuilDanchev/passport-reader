@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LinkService } from 'src/app/service/link-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Person} from '../person.model';
 
 
 @Component({
@@ -40,8 +41,13 @@ export class SelectPictureComponent implements OnInit {
     const formData = new FormData();
     formData.append('imagefile', this.selectedFile, this.selectedFile.name);
 
-    this.http.post(endpoint, formData).subscribe(
-      res => console.log(res),
+    this.http.post<Person>(endpoint, formData).subscribe(
+      (res) => {
+        console.log(res)
+        this.router.navigate(['/createAccount', {'data' : JSON.stringify(res)}], {
+          relativeTo: this.route,
+        });
+      },
       err => console.error(err)
     );
   }

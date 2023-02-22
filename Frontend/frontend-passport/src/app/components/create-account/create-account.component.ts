@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   trigger,
   state,
@@ -8,6 +8,7 @@ import {
   animate,
 } from '@angular/animations';
 import { LinkService } from 'src/app/service/link-service';
+import { Person } from '../person.model';
 
 @Component({
   selector: 'app-create-account',
@@ -42,15 +43,17 @@ export class CreateAccountComponent implements OnInit {
 
   constructor(
     private linkService: LinkService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
     ) {
   }
 
   ngOnInit(): void {
     this.link = this.linkService.link;
-    this.firstname = "Lars";
-    this.lastname = "Born";
-    this.birthday = "30.09.2022";
+    var data: Person = JSON.parse(this.route.snapshot.paramMap.get('data'));
+    this.firstname = data.first_name
+    this.lastname = data.last_name;
+    this.birthday = data.date_of_birth;
   }
 
   flip: string = 'inactive';

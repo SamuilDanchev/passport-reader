@@ -36,9 +36,11 @@ CORS(app)
 log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(level=logging.INFO, format=log_fmt)
 
+
 @app.route('/')
 def hello_world():
     return 'Welcome ! The endpoint is at <b>/process</b>'
+
 
 @app.route('/process', methods=['POST'])
 def process():
@@ -62,31 +64,37 @@ def process():
 
     # Convert image to text
     full_content = image_to_string(full_path)
-    logging.info('full image content = %s' %(full_content))
+    logging.info('full image content = %s' % (full_content))
 
     all_infos = {}
     all_infos['last_name'] = mrz_data['surname'].upper()
     all_infos['first_name'] = mrz_data['names'].upper()
-    all_infos['country_code'] = mrz_data['country']
-    all_infos['country'] = get_country_name(all_infos['country_code'])
-    all_infos['nationality'] = get_country_name(mrz_data['nationality'])
-    all_infos['number'] = mrz_data['number']
-    all_infos['sex'] = mrz_data['sex']
-    # all_infos['full_text'] = full_content
+    #all_infos['country_code'] = mrz_data['country']
+    #all_infos['country'] = get_country_name(all_infos['country_code'])
+    #all_infos['nationality'] = get_country_name(mrz_data['nationality'])
+    #all_infos['number'] = mrz_data['number']
+    #all_infos['sex'] = mrz_data['sex']
+    all_infos['full_text'] = full_content
     all_infos['date_of_birth'] = mrz_data['date_of_birth']
     valid_score = mrz_data['valid_score']
 
     # Trying to extract full name
     if all_infos['last_name'] in full_content:
-        splitted_fulltext = full_content.split("\n")
+        splitted_fulltext = full_content.split("<")
         for w in splitted_fulltext:
             if all_infos['last_name'] in w:
-                all_infos['last_name'] = w
+                all_infos['last_name'] = ''.join([i for i in w if not i.isdigit()])
+                
                 continue
 
-    splitted_firstname = all_infos['first_name'].split(" ")
+    splitted_firstname = all_infos['first_name'].split("<<")
+    # Falls zwischennamen.... ??? idk..
+    string_name = ''.join(splitted_firstname).split()
+    all_infos['first_name'] = string_name[0]
+    logging.info('AHAHAHAHAHAHAH = %s' % (string_name[0]))
     if splitted_firstname[0] in full_content:
         splitted_fulltext = full_content.split("\n")
+        
         for w in splitted_fulltext:
             if splitted_firstname[0] in w:
                 all_infos['first_name'] = clean_name(w)
@@ -94,6 +102,7 @@ def process():
 
     os.remove(full_path)
     return jsonify(all_infos)
+
 
 def get_country_name(country_code):
     with open('countries.json') as json_file:
@@ -103,14 +112,16 @@ def get_country_name(country_code):
                 return d['name']
     return country_code
 
+
 def clean_name(name):
     pattern = re.compile('([^\s\w]|_)+')
     name = pattern.sub('', name)
     return name.strip()
 
+
 def image_to_string(img_path):
     """Convert image to text using tesseract OCR"""
-
+    # A simple function to extract informations from a passport image file.
     img = cv2.imread(img_path)
 
     # Extract the file name without the file extension
@@ -138,11 +149,12 @@ def image_to_string(img_path):
     save_path = os.path.join(output_path, file_name + "_filter.jpg")
     cv2.imwrite(save_path, img)
 
-    # Recognize text with tesseract for python
+    # Recognize text with tesseract for python. Muss eig. deu sein??
     result = pytesseract.image_to_string(img, lang="eng")
 
     os.remove(save_path)
     return result.upper()
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
